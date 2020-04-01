@@ -3,10 +3,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><?php echo e(__('Регистрация')); ?></div>
+                <div class="card-header"><h2><?php echo e(__('Регистрация')); ?></h2></div>
 
                 <div class="card-body">
-                    <form method="POST" action="<?php echo e(route('register')); ?>" aria-label="<?php echo e(__('Register')); ?>">
+                    <form id="demo-form" method="POST" action="<?php echo e(route('register')); ?>" aria-label="<?php echo e(__('Register')); ?>">
                         <?php echo csrf_field(); ?>
 
                         <div class="form-group row">
@@ -59,6 +59,18 @@
                             </div>
                         </div>
 
+						<div class="form-group row">
+							<div class="col-md-6 offset-md-4">
+								<div class="g-recaptcha" data-sitekey="<?php echo e(env('G_RECAPTCHA_KEY')); ?>"></div>
+								
+								<?php if($errors->has('g-recaptcha-response')): ?>
+                                    <span class="invalid-feedback" style="display:block">
+                                        <strong><?php echo e($errors->first('g-recaptcha-response')); ?></strong>
+                                    </span>
+                                <?php endif; ?>
+							</div>
+						</div>
+						
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

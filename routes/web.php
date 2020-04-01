@@ -15,13 +15,23 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::post('/profile-show', 'ProfileController@index')->name('profile-show');
-Route::post('/profile-update', 'ProfileController@update')->name('profile-update');
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Маршруты доступные только авторизованным пользователям
+Route::middleware('auth:web')->group(function () {
+    // Маршруты для профиля
+    Route::any('/profile-show', 'ProfileController@index')->name('profile-show');
+    Route::post('/profile-update', 'ProfileController@update')->name('profile-update');
 
-Auth::routes();
+    // Маршруты для новостей
+    Route::get('/articles-view', function() {
+        return view ('articles-view');
+    })->name('articles-view');
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/articles', 'Api\ArticleController@index');
+    Route::get('/articles/{id}', 'Api\ArticleController@show');
+    Route::post('/articles', 'Api\ArticleController@store');
+    Route::patch('/articles/{id}', 'Api\ArticleController@update');
+    Route::delete('/articles/{id}', 'Api\ArticleController@destroy');
+});
+

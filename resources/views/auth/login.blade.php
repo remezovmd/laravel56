@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Вход') }}</div>
+                <div class="card-header"><h2>{{ __('Вход') }}</h2></div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+                    <form id='demo-form' method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -40,6 +40,18 @@
                         </div>
 
                         <div class="form-group row">
+							<div class="col-md-6 offset-md-4">
+								<div class="g-recaptcha" data-sitekey="{{env('G_RECAPTCHA_KEY')}}"></div>
+								
+								@if ($errors->has('g-recaptcha-response'))
+                                    <span class="invalid-feedback" style="display:block">
+                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                    </span>
+                                @endif
+							</div>
+						</div>
+
+                        <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -50,23 +62,9 @@
                                 </div>
                             </div>
                         </div>
-
-
-<script src="https://www.google.com/recaptcha/api.js?render=6LfW8eAUAAAAAJy8ftPi6t4nRTzTHs-ObZa1gJuo"></script>
-<script>
-grecaptcha.ready(function() {
-    grecaptcha.execute('6LfW8eAUAAAAAJy8ftPi6t4nRTzTHs-ObZa1gJuo', {action: 'contact-us'}).then(function(token) {
-       if (token) {
-		   document.getElementById('recaptcha').value = token;
-	   }
-    });
-});
-</script>
-
-
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" data-callback='onSubmit'>
                                     {{ __('Вход') }}
                                 </button>
 
@@ -76,6 +74,7 @@ grecaptcha.ready(function() {
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

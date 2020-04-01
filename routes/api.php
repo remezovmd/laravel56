@@ -13,6 +13,25 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
+    
+    // Маршруты для регистрации, авторизации
+    Route::post('/register', 'Api\AuthController@register');
+    Route::post('/login', 'Api\AuthController@login')->name('api-login');
+    
+    // Маршруты доступные только авторизованным пользователям
+    Route::middleware('auth:api')->group(function () {
+        // Маршрут для выхода
+        Route::post('/logout', 'Api\AuthController@logout')->name('api-logout');
+        
+        // Маршруты для новостей
+        Route::get('/articles', 'Api\ArticleController@index');
+        Route::get('/articles/{id}', 'Api\ArticleController@show');
+        Route::post('/articles', 'Api\ArticleController@store');
+        Route::post('/articles/{id}', 'Api\ArticleController@update');
+        Route::delete('/articles/{id}', 'Api\ArticleController@destroy');
+
+        // Маршруты для профиля
+        Route::get('/profile', 'Api\ProfileController@show');
+        Route::post('/profile', 'Api\ProfileController@update');
+    });

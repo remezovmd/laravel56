@@ -12,7 +12,8 @@
 
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
-
+	<script src="https://www.google.com/recaptcha/api.js"></script>
+	
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -24,10 +25,10 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="<?php echo e(url('/')); ?>">
+                <h1>
                     <?php echo e(config('app.name', 'Laravel')); ?>
 
-                </a>
+                </h1>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="<?php echo e(__('Toggle navigation')); ?>">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -66,6 +67,11 @@
                                        onclick="event.preventDefault();
                                                      document.getElementById('profile-form').submit();">
                                         <?php echo e(__('Профиль')); ?>
+
+                                    </a>
+
+                                    <a class="dropdown-item" href="<?php echo e(route('articles-view')); ?>">
+                                        <?php echo e(__('Новости')); ?>
 
                                     </a>
 									

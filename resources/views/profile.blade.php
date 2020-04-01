@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<?php $user = DB::table('users')->where('id', Auth::user()->id)->first(); ?>
+
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Профиль пользователя {{ Auth::user()->name }}</div>
+                <div class="card-header"><h2>Профиль пользователя</h2></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -15,7 +15,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-					<form enctype="multipart/form-data" method="POST" action="{{ route('profile-update') }}" aria-label="{{ __('Register') }}">
+					<form enctype="multipart/form-data" method="POST" action="{{ route('profile-update') }}" aria-label="{{ __('Profile') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -36,7 +36,7 @@
                             <label for="DOB" class="col-md-4 col-form-label text-md-right">{{ __('Дата рождения') }}</label>
 
                             <div class="col-md-6">
-                                <input id="DOB" type="date" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="DOB" value="{{ $user->DOB }}">
+                                <input id="DOB" type="date" class="form-control" name="DOB" value="{{ $user->DOB }}">
                             </div>
                         </div>
 
@@ -44,17 +44,16 @@
                             <label for="photo" class="col-md-4 col-form-label text-md-right">{{ __('Фото') }}</label>
 
                             <div class="col-md-6">
-                                <input id="photo" type="file" class="form-control" name="photo">
+                                <input id="photo" type="file" class="form-control-file" name="photo">
                             </div>
-							
                         </div>
-						<div class="form-group row">
-							<label for="photo" class="col-md-4 col-form-label text-md-right"></label>
-							<div class="col-md-6">
-								<img id="photoImage" src="{{ Storage::url($user->photo) }}" class="form-control" name="photoImage">
-							</div>
-						</div>
-						<input id="id" type="hidden" class="form-control" name="id" value="{{ $user->id }}">
+                        @if (Null !== $user->photo)
+                            <div class="form-group row">
+                                <div class="col-md-6 offset-md-4">
+                                    <img id="preview" src="storage/{{$user->photo}}" width = 100%>
+                                </div>
+                            </div>
+                        @endif
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

@@ -12,7 +12,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+	<script src="https://www.google.com/recaptcha/api.js"></script>
+	
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -24,9 +25,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <h1>
                     {{ config('app.name', 'Laravel') }}
-                </a>
+                </h1>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -64,6 +65,10 @@
                                        onclick="event.preventDefault();
                                                      document.getElementById('profile-form').submit();">
                                         {{ __('Профиль') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('articles-view') }}">
+                                        {{ __('Новости') }}
                                     </a>
 									
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

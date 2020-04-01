@@ -3,10 +3,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><?php echo e(__('Вход')); ?></div>
+                <div class="card-header"><h2><?php echo e(__('Вход')); ?></h2></div>
 
                 <div class="card-body">
-                    <form method="POST" action="<?php echo e(route('login')); ?>" aria-label="<?php echo e(__('Login')); ?>">
+                    <form id='demo-form' method="POST" action="<?php echo e(route('login')); ?>" aria-label="<?php echo e(__('Login')); ?>">
                         <?php echo csrf_field(); ?>
 
                         <div class="form-group row">
@@ -38,6 +38,18 @@
                         </div>
 
                         <div class="form-group row">
+							<div class="col-md-6 offset-md-4">
+								<div class="g-recaptcha" data-sitekey="<?php echo e(env('G_RECAPTCHA_KEY')); ?>"></div>
+								
+								<?php if($errors->has('g-recaptcha-response')): ?>
+                                    <span class="invalid-feedback" style="display:block">
+                                        <strong><?php echo e($errors->first('g-recaptcha-response')); ?></strong>
+                                    </span>
+                                <?php endif; ?>
+							</div>
+						</div>
+
+                        <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" <?php echo e(old('remember') ? 'checked' : ''); ?>>
@@ -49,23 +61,9 @@
                                 </div>
                             </div>
                         </div>
-
-
-<script src="https://www.google.com/recaptcha/api.js?render=6LfW8eAUAAAAAJy8ftPi6t4nRTzTHs-ObZa1gJuo"></script>
-<script>
-grecaptcha.ready(function() {
-    grecaptcha.execute('6LfW8eAUAAAAAJy8ftPi6t4nRTzTHs-ObZa1gJuo', {action: 'contact-us'}).then(function(token) {
-       if (token) {
-		   document.getElementById('recaptcha').value = token;
-	   }
-    });
-});
-</script>
-
-
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" data-callback='onSubmit'>
                                     <?php echo e(__('Вход')); ?>
 
                                 </button>
@@ -77,6 +75,7 @@ grecaptcha.ready(function() {
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Регистрация') }}</div>
+                <div class="card-header"><h2>{{ __('Регистрация') }}</h2></div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
+                    <form id="demo-form" method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -61,6 +61,18 @@
                             </div>
                         </div>
 
+						<div class="form-group row">
+							<div class="col-md-6 offset-md-4">
+								<div class="g-recaptcha" data-sitekey="{{env('G_RECAPTCHA_KEY')}}"></div>
+								
+								@if ($errors->has('g-recaptcha-response'))
+                                    <span class="invalid-feedback" style="display:block">
+                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                    </span>
+                                @endif
+							</div>
+						</div>
+						
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
