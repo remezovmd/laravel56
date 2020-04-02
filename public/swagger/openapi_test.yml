@@ -21,7 +21,7 @@ tags:
   - name: Articles
     description: API для новостей
 paths:
-  "/api/articles/":
+  /api/articles:
     get:
       tags:
         - Articles
@@ -136,7 +136,7 @@ paths:
                   mesage:
                     type: string
 
-  "/api/articles/{id}":
+  /api/articles/{id}:
     get:
       tags:
         - Articles
@@ -159,6 +159,8 @@ paths:
                 title: Article
                 type: object
                 properties:
+                  id:
+                    type: integer
                   title:
                     type: string
                     description: Заголовок
@@ -174,6 +176,9 @@ paths:
                   created_at:
                     type: string
                     description: Дата создания
+                  updated_at:
+                    type: string
+                    description: Дата последнего изменения
         401:
           description: Unauthorized
           content:
@@ -263,7 +268,7 @@ paths:
                   mesage:
                     type: string
 
-  "/api/profile/":
+  /api/profile:
     get:
       tags:
         - Profile
@@ -278,6 +283,8 @@ paths:
                 title: Profile
                 type: object
                 properties:
+                  id:
+                    type: integer
                   name:
                     type: string
                     description: ФИО пользователя
@@ -290,6 +297,12 @@ paths:
                   photo:
                     type: string
                     description: Путь к фотографии на сервере
+                  created_at:
+                    type: string
+                    description: Дата создания
+                  updated_at:
+                    type: string
+                    description: Дата последнего изменения
         401:
           description: Unauthorized
           content:
@@ -339,7 +352,7 @@ paths:
                   mesage:
                     type: string
 
-  "/api/register/":
+  /api/register:
     post:
       tags:
         - User
@@ -364,7 +377,7 @@ paths:
         422:
           description: Validation error
 
-  "/api/login/":
+  /api/login:
     post:
       tags:
         - User
@@ -398,7 +411,7 @@ paths:
         422:
           description: Unauthorized
 
-  "/api/logout/":
+  /api/logout:
     post:
       tags:
         - User

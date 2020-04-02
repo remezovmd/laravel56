@@ -53224,7 +53224,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    // Заполнение полей формы данными из API
+    // Получение данных из API
     mounted: function mounted() {
         var app = this;
         var id = app.$route.params.id;

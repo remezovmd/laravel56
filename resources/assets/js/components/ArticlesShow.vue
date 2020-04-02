@@ -26,7 +26,7 @@
 </template>
 <script>
     export default {
-        // Заполнение полей формы данными из API
+        // Получение данных из API
         mounted() {
             let app = this;
             let id = app.$route.params.id;
